@@ -18,22 +18,28 @@ void printResultFloat(float varA, float varB, float result) {
 int setValueInt() {
 	string initialValue;
 	int outCycle = 0;
+	bool goodItem = true;
 	
 	while(outCycle == 0) {
 		printf("Value: ");
 		scanf("%s", &initialValue);
 		for(int i = 0; i < initialValue.size(); i++) {
 			if(initialValue[i] == '.') {
-				printf("The value inserted is not valid, please, introduce valid data.\n");
+				printf("1The value inserted is not valid, please, introduce valid data.\n");
+				goodItem = false;
 				break;
 			} else if(initialValue[i] < 48 || initialValue[i] > 57) {
-				printf("The value inserted is not valid, please, introduce valid data.\n");
+				printf("2The value inserted is not valid, please, introduce valid data.\n");
+				goodItem = false;
 				break;
 			}
 		}
-		outCycle = 1;	
+		
+		if(goodItem) {
+			outCycle = 1;	
+		}	
 	}
-	
+	printf("Out cycle!!!\n");
 	return atoi(initialValue.c_str());
 }
 
@@ -56,8 +62,9 @@ float setValueFloat() {
 	return strtof(initialValue.c_str(),0);
 }
 
-void doOpearation(char selection, char operation) {
+void doOperation(char selection, char operation) {
 	if(selection == 'A') {
+		printf("Addition!!!\n");
 		int x, y, result;
 		
 		x = setValueInt();
@@ -65,7 +72,7 @@ void doOpearation(char selection, char operation) {
 		
 		result = addition(x, y);
 		
-		printResult(x, y, result);
+		printResultInt(x, y, result);
 	} else {
 		float x, y, result;
 		
@@ -74,7 +81,7 @@ void doOpearation(char selection, char operation) {
 		
 		result = addition(x, y);
 		
-		printResult(x, y, result);
+		printResultFloat(x, y, result);
 	}
 }
 
@@ -87,9 +94,7 @@ void selectOptionSecondary(char varSelection) {
 		printf("Option: ");			
 		scanf(" %c", &selection);	
 	
-		if(selection != 'A' || selection != 'B') {
-			printf("The option selected is unknown, please retry the option:\n");
-		} else if(selection == 'A') {
+		if(selection == 'A') {
 			printf("ADDITION is the option selected!\n");
 			outCycle = 1;
 		} else if(selection == 'B') {
@@ -104,6 +109,8 @@ void selectOptionSecondary(char varSelection) {
 		} else if(selection == 'E') {
 			printf("POWER is the option selected!\n");
 			outCycle = 1;
+		} else {
+			printf("The option selected is unknown, please retry it: \n");
 		}				
 	}
 	
